@@ -1,0 +1,42 @@
+@(subjectList:List[models.Subject])
+
+@import helper._
+
+
+<title>オンライン小テストシステム</title>
+<h1>科目一覧</h1>
+
+<!-- 登録が完了しました。 -->
+
+  <form action="@routes.SubjectController.create" method="POST">
+    <button type="submit" name="create">新規作成</button>
+  </form>
+
+
+@if(subjectList != null){
+  <table class ="subjectList" border= 1>
+    <tr>
+      <th>id</th>
+      <th>科目</th>
+    </tr>
+    @for(Subject<- subjectList){
+    <tr>
+      <th>@Subject.getBango()</th()>
+      <th>@{Subject.getSubjectName()}</th>
+      <th>
+        <form action="@routes.SubjectController.update" method="POST">
+          <button type="submit" name="update">編集</button>
+        </form>
+      </th>
+      <th>
+        <form action="@routes.SubjectController.delete" method="POST">
+          <button type="submit" name="delete">削除</button>
+        </form>
+      </th>
+    </tr>
+    }
+  </table>
+}
+
+  <!-- 科目が登録されていません。 -->
+

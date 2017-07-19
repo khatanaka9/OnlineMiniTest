@@ -1,0 +1,21 @@
+
+@import helper._
+
+
+<title>オンライン小テストシステム</title>
+<h1>科目新規登録</h1>
+<form action="@routes.SubjectController.createExec" method="POST">
+
+  <label for = "subject_name">科目名</label>
+  <input type="text" name = "subject_name" id = "subject_name" placeholder="科目名を入れてください"required>
+
+  <button type="submit" name = "subject_name" id ="subject_name">
+    登録する
+  </button>
+
+  <a href="@routes.SubjectController.subjectList">
+    <button type="Button" name="subjectList" id="subjectList">
+      科目一覧に戻る
+    </button>
+  </a>
+</form>
