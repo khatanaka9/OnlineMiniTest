@@ -1,4 +1,4 @@
-
+@(subjectName:String)
 
 @import helper._
 
@@ -8,15 +8,13 @@
 <form action="@routes.SubjectController.updateExec" method="POST">
 
   <label for = "subject_name">科目名</label>
-  <input type="text" name = "subject_name" id = "subject_name"  placeholder="科目名を入れてください"required>
+  <input type="text" name = "subject_name" id = "subject_name" value="@subjectName" placeholder="科目名を入れてください"required>
 
   <button type="submit" name = "subject_name" id ="subject_name">
     登録する
   </button>
-
-  <a href="@routes.SubjectController.subjectList">
-    <button type="Button" name="subjectList" id="subjectList">
-      科目一覧に戻る
-    </button>
-  </a>
 </form>
+<form action="@routes.SubjectController.subjectList" method="POST">
+  <button type="submit" name="subjectList">科目一覧に戻る</button>
+</form>
+

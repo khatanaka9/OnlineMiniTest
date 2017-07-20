@@ -6,7 +6,7 @@
 <title>オンライン小テストシステム</title>
 <h1>科目一覧</h1>
 
-<!-- 登録が完了しました。 -->
+<!-- TODO 登録が完了しました。 -->
 
   <form action="@routes.SubjectController.create" method="POST">
     <button type="submit" name="create">新規作成</button>
@@ -22,9 +22,10 @@
     @for(Subject<- subjectList){
     <tr>
       <th>@Subject.getBango()</th()>
-      <th>@{Subject.getSubjectName()}</th>
+      <th>@Subject.getSubjectName()</th>
       <th>
         <form action="@routes.SubjectController.update" method="POST">
+          <input  type="hidden" name="subject_name" id="subject_name" value="@Subject.getSubjectName">
           <button type="submit" name="update">編集</button>
         </form>
       </th>
@@ -36,7 +37,10 @@
     </tr>
     }
   </table>
+
+   <!-- TODO 教員メニューに戻る -->
+
 }
 
-  <!-- 科目が登録されていません。 -->
+  <!-- TODO 科目が登録されていません。 -->
 

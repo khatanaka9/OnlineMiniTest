@@ -26,32 +26,51 @@ public class Subject extends Model {
 
 
 	/**
+	 * ID
+	 */
+	@Id
+	@Column(name = "ID")
+	private int id;
+
+	/**
+	 * IDを取得する
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * IDを設定する
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
 	 * 科目名
 	 */
-	@ManyToOne
-	@JoinColumn(name = "id")
-	private SubjectName subjectName;
-	/**
-	 * 連番
-	 */
-	@Column(name = "bango")
-	private int bango;
+	@Column(name = "subject_name")
+	private String subjectName;
 
 	/**
 	 * 科目名を取得する
-	 * @return subjectName
 	 */
-	public SubjectName getSubjectName() {
+	public String getSubjectName() {
 		return subjectName;
 	}
 
 	/**
 	 * 科目名を設定する
-	 * @param subjectName 科目名
 	 */
-	public void setSubjectName(SubjectName subjectName) {
+	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
 	}
+
+	/**
+	 * 連番
+	 */
+	@Column(name = "bango")
+	private int bango;
 
 	/**
 	 * 連番を取得する

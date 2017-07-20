@@ -4,13 +4,13 @@ import java.util.*;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.management.Query;
 
 import org.apache.commons.lang3.StringUtils;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 import play.*;
 import play.mvc.*;
-import play.mvc.Http.Context;
 import models.*;
 
 import views.html.*;
@@ -35,7 +35,6 @@ import com.avaje.ebean.ExpressionList;
 public class SubjectController extends Controller {
 
 
-
 	/**
 	 * 科目一覧を表示するアクション
 	 */
@@ -45,28 +44,21 @@ public class SubjectController extends Controller {
     }
 
     /**
-     * 科目を作成するアクション
+     * 科目作成画面を表示するアクション
      * */
     public Result create(){
     	return ok(subjectCreate.render());
     }
 
+    /**
+     * 科目を作成するアクション
+     * */
     public Result createExec(){
-    	SubjectName subjectName = new SubjectName();
-    	Subject subject = new Subject();
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
-
-    	System.out.println(subjectRequestForm.get().getSubjectName());
-    	System.out.println(subjectName);
-
-    	String a =subjectRequestForm.get().getSubjectName();
-    	System.out.println(a);
-    	subjectName.setSubjectName(a);
-    	subjectName.save();
-    	System.out.println(subjectName);
+    	String subjectName =subjectRequestForm.get().getSubjectName();
+    	Subject subject = new Subject();
     	subject.setSubjectName(subjectName);
     	subject.save();
-
 
 		final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
@@ -74,30 +66,48 @@ public class SubjectController extends Controller {
 
 
     /**
-     * 科目を更新するアクション
+     * 科目更新画面を表示するアクション
      * */
     public Result update(){
-    	return ok(subjectUpdate.render());
-    }
-    public Result updateExec(){
-    	SubjectName subjectName = new SubjectName();
     	Subject subject = new Subject();
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	String name=subjectRequestForm.get().getSubjectName();
+    	return ok(subjectUpdate.render(name));
+    }
 
-    	subjectName.setSubjectName(subjectRequestForm.get().getSubjectName());
-    	subjectName.save();
+    /**
+     * 科目を更新するアクション
+     * */
+    public Result updateExec(){
+    	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	String subjectName =subjectRequestForm.get().getSubjectName();
+    	Subject subject = new Subject();
     	subject.setSubjectName(subjectName);
-    	subject.save();
+    	subject.update();
 
     	final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
     }
 
     /**
-     * 科目を削除するアクション
+     * 科目削除確認画面に遷移するアクション
      * */
     public Result delete(){
     	return ok(subjectDelete.render());
+    }
+
+    /**
+     * 科目を削除するアクション
+     * */
+    public Result deleteExec(){
+    	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	String subjectName =subjectRequestForm.get().getSubjectName();
+    	Subject subject = new Subject();
+    	subject.setSubjectName(subjectName);
+    	subject.delete();
+
+    	final List<Subject> subjectList = Subject.getFind().all();
+    	return ok(subjectListView.render(subjectList));
     }
 
 }

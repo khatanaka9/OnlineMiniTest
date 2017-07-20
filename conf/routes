@@ -13,8 +13,9 @@ GET     /login                      controllers.LoginController.login
 POST    /doLogin                    controllers.LoginController.doLogin
 # loginapi
 POST    /api/doLogin                controllers.LoginApiController.doLogin
+
 # subjectList
-GET    /subjectList                 controllers.SubjectController.subjectList
+POST    /subjectList                 controllers.SubjectController.subjectList
 # create
 POST   /create                      controllers.SubjectController.create
 # createExec
@@ -25,3 +26,5 @@ POST   /update                      controllers.SubjectController.update
 POST   /updateExec                  controllers.SubjectController.updateExec
 # delete
 POST   /delete                      controllers.SubjectController.delete
+# delete
+POST   /deleteExec                  controllers.SubjectController.deleteExec

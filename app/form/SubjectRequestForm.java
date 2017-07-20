@@ -16,6 +16,22 @@ public class SubjectRequestForm {
 	public String subject_name;
 	//連番
 	public int bango;
+	//id
+	public int id;
+
+	/**
+	 * idを取得する
+	 */
+	public int getId(){
+		return this.id;
+	}
+
+	/**
+	 * idを設定する
+	 */
+	public void setId(int id){
+		this.id = id;
+	}
 
 	/**
 	 * 科目名を取得する

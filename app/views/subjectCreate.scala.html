@@ -12,10 +12,8 @@
   <button type="submit" name = "subject_name" id ="subject_name">
     登録する
   </button>
+</form>
 
-  <a href="@routes.SubjectController.subjectList">
-    <button type="Button" name="subjectList" id="subjectList">
-      科目一覧に戻る
-    </button>
-  </a>
+<form action="@routes.SubjectController.subjectList" method="POST">
+  <button type="submit" name="subjectList">科目一覧に戻る</button>
 </form>

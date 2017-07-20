@@ -5,12 +5,35 @@
 
 
 <title>オンライン小テストシステム</title>
-<h1>科目一覧</h1>
+<h1>教員メニュー</h1>
 
 
 <table class ="subjectList">
   <tr>
-    <th>id</th>
-    <th>科目</th>
+    <form action="@routes.SubjectController.subjectList" method="POST">
+      <th>
+        <button type="submit" name="subjectList">科目定義</button>
+      </th>
+    </form>
+  </tr>
+  <tr>
+    <th>
+      <button type="submit" name="">履修者登録・削除</button>
+    </th>
+  </tr>
+  <tr>
+    <th>
+      <button type="submit" name="">問題登録</button>
+    </th>
+  </tr>
+  <tr>
+    <th>
+      <button type="submit" name="">問題種類3採点</button>
+    </th>
+  </tr>
+  <tr>
+    <th>
+      <button type="submit" name="">問題と解答の確認とCSV形式出力</button>
+    </th>
   </tr>
 </table>

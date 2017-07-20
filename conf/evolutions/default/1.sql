@@ -4,14 +4,10 @@
 # --- !Ups
 
 create table subject (
-  id                            integer,
-  bango                         integer
-);
-
-create table subject_name (
   id                            integer auto_increment not null,
   subject_name                  varchar(255),
-  constraint pk_subject_name primary key (id)
+  bango                         integer,
+  constraint pk_subject primary key (id)
 );
 
 create table user_table (
@@ -24,18 +20,10 @@ create table user_table (
   constraint pk_user_table primary key (id)
 );
 
-alter table subject add constraint fk_subject_id foreign key (id) references subject_name (id) on delete restrict on update restrict;
-create index ix_subject_id on subject (id);
-
 
 # --- !Downs
 
-alter table subject drop foreign key fk_subject_id;
-drop index ix_subject_id on subject;
-
 drop table if exists subject;
-
-drop table if exists subject_name;
 
 drop table if exists user_table;
 
