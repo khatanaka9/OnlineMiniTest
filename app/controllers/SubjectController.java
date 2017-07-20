@@ -59,6 +59,7 @@ public class SubjectController extends Controller {
     	Subject subject = new Subject();
     	subject.setSubjectName(subjectName);
     	subject.save();
+    	//TODO ID加算、取得処理
 
 		final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
