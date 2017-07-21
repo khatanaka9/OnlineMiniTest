@@ -3,11 +3,21 @@
 
 
 <title>オンライン小テストシステム</title>
-<h1>削除します。よろしいですか？</h1>
+<h1>科目削除</h1>
 
+<h3>削除します。よろしいですか？</h3>
+
+ <table>
+  <tr>
+    <th>
   <form action="@routes.SubjectController.deleteExec" method="POST">
     <button type="submit" name="delete">削除する</button>
   </form>
+    </th>
+    <th>
   <form action="@routes.SubjectController.subjectList" method="POST">
     <button type="submit" name="subjectList">科目一覧に戻る</button>
   </form>
+  </th>
+  </tr>
+</table>

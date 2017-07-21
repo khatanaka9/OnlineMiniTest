@@ -89,23 +89,23 @@ public class Subject extends Model {
 		this.bango = bango;
 	}
 
-		/**
-		 * find
-		 */
-		private static Find<Long, Subject> find = new Find<Long, Subject>() {
-		};
+	/**
+	 * find
+	 */
+	private static Find<Long, Subject> find = new Find<Long, Subject>() {
+	};
 	 /**
-		 * find取得
-		 */
-		public static Find<Long, Subject> getFind() {
-			return find;
-		}
+	 * find取得
+	 */
+	public static Find<Long, Subject> getFind() {
+		return find;
+	}
 
 
-		/**
-		 * find設定
-		 */
-		public static void setFind(Find<Long, Subject> find) {
-			Subject.find = find;
-		}
+	/**
+	 * find設定
+	 */
+	public static void setFind(Find<Long, Subject> find) {
+		Subject.find = find;
+	}
 }

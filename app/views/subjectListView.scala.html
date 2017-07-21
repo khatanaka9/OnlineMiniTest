@@ -8,6 +8,8 @@
 
 <!-- TODO 登録が完了しました。 -->
 
+
+
   <form action="@routes.SubjectController.create" method="POST">
     <button type="submit" name="create">新規作成</button>
   </form>
@@ -16,7 +18,7 @@
 @if(subjectList != null){
   <table class ="subjectList" border= 1>
     <tr>
-      <th>id</th>
+      <th>番号</th>
       <th>科目</th>
     </tr>
     @for(Subject<- subjectList){
@@ -38,9 +40,17 @@
     }
   </table>
 
-   <!-- TODO 教員メニューに戻る -->
+   <!-- TODO 教員メニューに戻る
+   教員メニューをログインの最後に作成したから直で飛べない？-->
+
+   <form action="@routes.SubjectController.subjectList" method="POST">
+     <button type="submit" name="subjectList">教員メニューに戻る</button>
+   </form>
 
 }
-
-  <!-- TODO 科目が登録されていません。 -->
+<!-- TODO elseを使うとエラーが出てしまう？
+else{
+<h2>科目が登録されていません</h2>
+}
+-->
 
