@@ -1,4 +1,4 @@
-@(id:String,subjectName:String,message:String,subjectForm: Form[form.SubjectRequestForm])
+@(bango:Int,id:String,subjectName:String,message:String,subjectForm: Form[form.SubjectRequestForm])
 
 @import helper._
 
@@ -19,11 +19,11 @@
 }
 <br>
   <label for = "subjectId">科目ID</label>
- <input type="text" name = "id" id = "id" value="@id">
-
+  <input type="text" name = "id" id = "id" value="@id">
   <label for = "subject_name">科目名</label>
- <input type="text" name = "subject_name" id = "subject_name" value="@subjectName">
-<br>
+  <input type="text" name = "subject_name" id = "subject_name" value="@subjectName">
+  <br>
+  <input  type="hidden" name="bango" id="bango" value="@bango">
   <button type="submit" name = "subject" id ="subject">
     登録する
   </button>

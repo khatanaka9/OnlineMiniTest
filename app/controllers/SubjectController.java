@@ -20,7 +20,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import form.*;
-
+import com.avaje.ebean.ExpressionList;
 
 /**
 * 科目クラス
@@ -73,11 +73,14 @@ public class SubjectController extends Controller {
      * 科目更新画面を表示するアクション
      */
     public Result update(){
-    	Subject subject = new Subject();
+
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	Subject subject = new Subject();
+    	int bango = subjectRequestForm.get().getBango();
     	String id = subjectRequestForm.get().getId();
     	String name = subjectRequestForm.get().getSubjectName();
-    	return ok(subjectUpdate.render(id,name,"科目IDと科目名を入力してください。",null));
+
+    	return ok(subjectUpdate.render(bango,id,name,"科目IDと科目名を入力してください。",null));
     }
 
     /**
@@ -86,26 +89,24 @@ public class SubjectController extends Controller {
     public Result updateExec(){
 
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	int bango = subjectRequestForm.get().getBango();
+
+    	ExpressionList<Subject> datalist = Subject.getFind().where().eq("bango", bango);
+    	List<Subject> data = datalist.findList();
     	Subject subject = new Subject();
-
-    	//TODO 項目未入力時に値が取得できない
-//    	String id =subjectRequestForm.get().getId();
-//    	String name =subjectRequestForm.get().getSubjectName();
-
-    	String id =null;
-    	String name =null;
+    	String id =data.get(0).getId();
+    	String name =data.get(0).getSubjectName();
     	// バリデーション
     	if (subjectRequestForm.hasErrors()) {
 			System.out.println("バリデーションエラー");
-			return badRequest(subjectUpdate.render(id,name,"科目編集に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
+			return badRequest(subjectUpdate.render(bango,id,name,"科目編集に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
     	}
-
-
     	String subjectId =subjectRequestForm.get().getId();
     	String subjectName =subjectRequestForm.get().getSubjectName();
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.update();
+
 
     	//TODO subjectList()を呼び出す形に変更したいがエラーとなる
     	final List<Subject> subjectList = Subject.getFind().all();

@@ -30,6 +30,7 @@
       <th>@Subject.getSubjectName()</th>
       <th>
         <form action="@routes.SubjectController.update" method="POST">
+          <input  type="hidden" name="bango" id="bango" value="@Subject.getBango">
           <input  type="hidden" name="id" id="id" value="@Subject.getId">
           <input  type="hidden" name="subject_name" id="subject_name" value="@Subject.getSubjectName">
           <button type="submit" name="update">編集</button>
