@@ -7,14 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Index;
-import javax.persistence.ManyToOne;
-import javax.persistence.JoinColumn;
 
 import com.avaje.ebean.annotation.*;
 import com.avaje.ebean.Model;
 import com.avaje.ebean.Model.*;
-import com.avaje.ebean.annotation.CreatedTimestamp;
-import com.avaje.ebean.annotation.UpdatedTimestamp;
 
 
 /**
@@ -29,20 +25,20 @@ public class Subject extends Model {
 	 * ID
 	 */
 	@Id
-	@Column(name = "ID")
-	private int id;
+	@Column(name = "id")
+	private String id;
 
 	/**
 	 * IDを取得する
 	 */
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
 	/**
 	 * IDを設定する
 	 */
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

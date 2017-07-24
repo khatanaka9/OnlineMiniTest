@@ -1,4 +1,4 @@
-error.required = 入力必須ですaaaa
+error.required = 入力必須です
 error.invalid = 正しい形式で入力してください
 error.max = {0}歳までで入力してください
 error.email = メールアドレスを入力してください

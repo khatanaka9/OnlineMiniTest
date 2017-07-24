@@ -24,7 +24,6 @@ import form.*;
 
 /**
 * 科目クラス
-* @author Ken Hatanaka
 *
 */
 @Singleton
@@ -43,7 +42,7 @@ public class SubjectController extends Controller {
      * 科目作成画面を表示するアクション
      */
     public Result create(){
-    	return ok(subjectCreate.render());
+    	return ok(subjectCreate.render("科目IDと科目名を入力してください。", null));
     }
 
     /**
@@ -51,28 +50,21 @@ public class SubjectController extends Controller {
      */
     public Result createExec(){
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
-    	String subjectName =subjectRequestForm.get().getSubjectName();
-    	Subject subject = new Subject();
-    	final List<Subject> subjectListId = Subject.getFind().all();
 
-    	//科目IDを取得
-    	//TODO IDの形をsubject000等に変更。
-    	//TODO 何故かstreamが使用できない。
-    	Subject max = null;
-    	for(Subject sub:subjectListId){
-    		if(max == null){
-    			max = sub;
-    		}
-    		else if(max.getId() < sub.getId()){
-    			max = sub;
-    		}
-    		subject.setId(sub.getId());
+    	// バリデーション
+    	if (subjectRequestForm.hasErrors()) {
+			System.out.println("バリデーションエラー");
+			return badRequest(subjectCreate.render("科目登録に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
     	}
-    	subject.setId(subject.getId()+1);
+
+    	Subject subject = new Subject();
+    	String subjectName =subjectRequestForm.get().getSubjectName();
+    	String subjectId =subjectRequestForm.get().getId();
+    	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.save();
 
-    	//TODO subjectListを呼び出す形に変更したいがエラーとなる
+    	//TODO subjectList()を呼び出す形に変更したいがエラーとなる
     	final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
     }
@@ -83,21 +75,39 @@ public class SubjectController extends Controller {
     public Result update(){
     	Subject subject = new Subject();
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
-    	String name=subjectRequestForm.get().getSubjectName();
-    	return ok(subjectUpdate.render(name));
+    	String id = subjectRequestForm.get().getId();
+    	String name = subjectRequestForm.get().getSubjectName();
+    	return ok(subjectUpdate.render(id,name,"科目IDと科目名を入力してください。",null));
     }
 
     /**
      * 科目を更新するアクション
      */
     public Result updateExec(){
+
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
-    	String subjectName =subjectRequestForm.get().getSubjectName();
     	Subject subject = new Subject();
+
+    	//TODO 項目未入力時に値が取得できない
+//    	String id =subjectRequestForm.get().getId();
+//    	String name =subjectRequestForm.get().getSubjectName();
+
+    	String id =null;
+    	String name =null;
+    	// バリデーション
+    	if (subjectRequestForm.hasErrors()) {
+			System.out.println("バリデーションエラー");
+			return badRequest(subjectUpdate.render(id,name,"科目編集に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
+    	}
+
+
+    	String subjectId =subjectRequestForm.get().getId();
+    	String subjectName =subjectRequestForm.get().getSubjectName();
+    	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.update();
 
-    	//TODO subjectListを呼び出す形に変更したいがエラーとなる
+    	//TODO subjectList()を呼び出す形に変更したいがエラーとなる
     	final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
     }
@@ -106,7 +116,12 @@ public class SubjectController extends Controller {
      * 科目削除確認画面に遷移するアクション
      */
     public Result delete(){
-    	return ok(subjectDelete.render());
+
+    	Subject subject = new Subject();
+    	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	String id = subjectRequestForm.get().getId();
+    	String name = subjectRequestForm.get().getSubjectName();
+    	return ok(subjectDelete.render(id,name,null));
     }
 
     /**
@@ -114,12 +129,14 @@ public class SubjectController extends Controller {
      */
     public Result deleteExec(){
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
-    	String subjectName =subjectRequestForm.get().getSubjectName();
     	Subject subject = new Subject();
+    	String subjectId =subjectRequestForm.get().getId();
+    	String subjectName =subjectRequestForm.get().getSubjectName();
+    	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.delete();
 
-    	//TODO subjectListを呼び出す形に変更したいがエラーとなる
+    	//TODO subjectList()を呼び出す形に変更したいがエラーとなる
     	final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
     }

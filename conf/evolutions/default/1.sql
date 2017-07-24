@@ -4,7 +4,7 @@
 # --- !Ups
 
 create table subject (
-  id                            integer auto_increment not null,
+  id                            varchar(255) not null,
   subject_name                  varchar(255),
   bango                         integer,
   constraint pk_subject primary key (id)

@@ -2,8 +2,6 @@ package form;
 
 import javax.persistence.*;
 import java.util.*;
-//import play.data.validation.Constraints.*;
-//import play.data.validation.Constraints;
 
 import com.avaje.ebean.annotation.*;
 import play.api.data.validation.*;
@@ -13,23 +11,24 @@ import play.data.validation.ValidationError;
 public class SubjectRequestForm {
 
 	//科目名
+//	@Required
 	public String subject_name;
 	//連番
 	public int bango;
 	//id
-	public int id;
+//	@Required
+	public String id;
 
 	/**
 	 * idを取得する
 	 */
-	public int getId(){
+	public String getId(){
 		return this.id;
 	}
-
 	/**
 	 * idを設定する
 	 */
-	public void setId(int id){
+	public void setId(String id){
 		this.id = id;
 	}
 
@@ -60,6 +59,21 @@ public class SubjectRequestForm {
 	 */
 	public void setBango(int bango){
 		this.bango = bango;
+	}
+
+	/**
+	 *入力データの妥当性チェック
+	 */
+	public List<ValidationError> validate(){
+		List<ValidationError> errors = new ArrayList<ValidationError>();
+
+		if (this.subject_name == null || this.subject_name.equals("")){
+			errors.add(new ValidationError("subject_name","科目名は必須です。"));
+		}
+		if (this.id == null || this.id.equals("")){
+			errors.add(new ValidationError("id","科目IDは必須です。"));
+		}
+		return errors.isEmpty() ? null : errors;
 	}
 
 

@@ -1,4 +1,4 @@
-@(subjectName:String)
+@(id:String,subjectName:String,message:String,subjectForm: Form[form.SubjectRequestForm])
 
 @import helper._
 
@@ -7,10 +7,24 @@
 <h1>科目編集</h1>
 <form action="@routes.SubjectController.updateExec" method="POST">
 
-  <label for = "subject_name">科目名</label>
-  <input type="text" name = "subject_name" id = "subject_name" value="@subjectName" placeholder="科目名を入れてください"required>
+@message
 
-  <button type="submit" name = "subject_name" id ="subject_name">
+@if(subjectForm != null) {
+    @for(error <- subjectForm("id").errors) {
+        <p class="error">@error.message</p>
+    }
+    @for(error <- subjectForm("subject_name").errors) {
+        <p class="error">@error.message</p>
+    }
+}
+<br>
+  <label for = "subjectId">科目ID</label>
+ <input type="text" name = "id" id = "id" value="@id">
+
+  <label for = "subject_name">科目名</label>
+ <input type="text" name = "subject_name" id = "subject_name" value="@subjectName">
+<br>
+  <button type="submit" name = "subject" id ="subject">
     登録する
   </button>
 </form>

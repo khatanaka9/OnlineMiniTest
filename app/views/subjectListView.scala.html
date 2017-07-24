@@ -18,21 +18,27 @@
 @if(subjectList != null){
   <table class ="subjectList" border= 1>
     <tr>
+
       <th>番号</th>
+      <th>科目ID</th>
       <th>科目</th>
     </tr>
     @for(Subject<- subjectList){
     <tr>
       <th>@Subject.getBango()</th()>
+      <th>@Subject.getId()</th>
       <th>@Subject.getSubjectName()</th>
       <th>
         <form action="@routes.SubjectController.update" method="POST">
+          <input  type="hidden" name="id" id="id" value="@Subject.getId">
           <input  type="hidden" name="subject_name" id="subject_name" value="@Subject.getSubjectName">
           <button type="submit" name="update">編集</button>
         </form>
       </th>
       <th>
         <form action="@routes.SubjectController.delete" method="POST">
+          <input  type="hidden" name="id" id="id" value="@Subject.getId">
+          <input  type="hidden" name="subject_name" id="subject_name" value="@Subject.getSubjectName">
           <button type="submit" name="delete">削除</button>
         </form>
       </th>
