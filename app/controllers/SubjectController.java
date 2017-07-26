@@ -89,16 +89,18 @@ public class SubjectController extends Controller {
     public Result updateExec(){
 
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
-    	int bango = subjectRequestForm.get().getBango();
-
-    	ExpressionList<Subject> datalist = Subject.getFind().where().eq("bango", bango);
-    	List<Subject> data = datalist.findList();
     	Subject subject = new Subject();
-    	String id =data.get(0).getId();
-    	String name =data.get(0).getSubjectName();
     	// バリデーション
     	if (subjectRequestForm.hasErrors()) {
 			System.out.println("バリデーションエラー");
+			System.out.println(subjectRequestForm.get().getBango());
+			int bango = subjectRequestForm.get().getBango();
+
+			ExpressionList<Subject> datalist = Subject.getFind().where().eq("bango", bango);
+			List<Subject> data = datalist.findList();
+
+			String id =data.get(0).getId();
+			String name =data.get(0).getSubjectName();
 			return badRequest(subjectUpdate.render(bango,id,name,"科目編集に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
     	}
     	String subjectId =subjectRequestForm.get().getId();

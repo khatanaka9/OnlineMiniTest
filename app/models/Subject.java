@@ -85,6 +85,15 @@ public class Subject extends Model {
 		this.bango = bango;
 	}
 
+	public Subject(String subjectName,String id){
+		this.subjectName = subjectName;
+		this.id = id;
+	}
+
+	public Subject(){
+
+	}
+
 	/**
 	 * find
 	 */
