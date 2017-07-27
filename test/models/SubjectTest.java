@@ -21,10 +21,10 @@ public class SubjectTest  {
 
 		subject_name = "物理";
 		id = "subject001";
+// TODO ebeanが使用できない
 //		subject.setId(id);
 //		subject.setSubjectName(subject_name);
 //		subject.save();
-//
 		Subject subject = new Subject(subject_name,id);
 	}
 

@@ -58,8 +58,11 @@ public class SubjectController extends Controller {
     	}
 
     	Subject subject = new Subject();
+
+    	//フォームから入力値を取得
     	String subjectName =subjectRequestForm.get().getSubjectName();
     	String subjectId =subjectRequestForm.get().getId();
+    	//入力値をINSERTする
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.save();
@@ -76,6 +79,7 @@ public class SubjectController extends Controller {
 
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
     	Subject subject = new Subject();
+    	//フォームから選択した科目を取得
     	int bango = subjectRequestForm.get().getBango();
     	String id = subjectRequestForm.get().getId();
     	String name = subjectRequestForm.get().getSubjectName();
@@ -93,18 +97,21 @@ public class SubjectController extends Controller {
     	// バリデーション
     	if (subjectRequestForm.hasErrors()) {
 			System.out.println("バリデーションエラー");
-			System.out.println(subjectRequestForm.get().getBango());
+			//フォームからupdate()で選択した科目を取得
 			int bango = subjectRequestForm.get().getBango();
 
+			//選択した科目を検索
 			ExpressionList<Subject> datalist = Subject.getFind().where().eq("bango", bango);
 			List<Subject> data = datalist.findList();
-
+			//update()で選択した科目IDと科目名を取得
 			String id =data.get(0).getId();
 			String name =data.get(0).getSubjectName();
 			return badRequest(subjectUpdate.render(bango,id,name,"科目編集に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
     	}
+    	//フォームから値を取得
     	String subjectId =subjectRequestForm.get().getId();
     	String subjectName =subjectRequestForm.get().getSubjectName();
+    	//入力値でUPDATEする
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.update();
@@ -122,6 +129,7 @@ public class SubjectController extends Controller {
 
     	Subject subject = new Subject();
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
+    	//フォームから選択した科目を取得
     	String id = subjectRequestForm.get().getId();
     	String name = subjectRequestForm.get().getSubjectName();
     	return ok(subjectDelete.render(id,name,null));
@@ -133,8 +141,10 @@ public class SubjectController extends Controller {
     public Result deleteExec(){
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
     	Subject subject = new Subject();
+    	//フォームから選択した科目を取得
     	String subjectId =subjectRequestForm.get().getId();
     	String subjectName =subjectRequestForm.get().getSubjectName();
+    	//選択した科目をDELETE
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.delete();
