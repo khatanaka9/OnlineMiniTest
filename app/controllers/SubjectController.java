@@ -23,23 +23,27 @@ import form.*;
 import com.avaje.ebean.ExpressionList;
 
 /**
-* 科目クラス
-*
+* 科目コントローラクラス
+* @author Ken Hatanaka
 */
 @Singleton
 public class SubjectController extends Controller {
 
-
 	/**
 	 * 科目一覧を表示するアクション
+	 * @param なし
+	 * @return HTTPレスポンス(RESTに準拠)
 	 */
     public Result subjectList() {
+    	//全件検索
     	final List<Subject> subjectList = Subject.getFind().all();
     	return ok(subjectListView.render(subjectList));
     }
 
     /**
      * 科目作成画面を表示するアクション
+     * @param なし
+     * @return HTTPレスポンス(RESTに準拠)
      */
     public Result create(){
     	return ok(subjectCreate.render("科目IDと科目名を入力してください。", null));
@@ -47,22 +51,25 @@ public class SubjectController extends Controller {
 
     /**
      * 科目を作成するアクション
+     * @param なし
+     * @return HTTPレスポンス(RESTに準拠)
      */
     public Result createExec(){
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
 
     	// バリデーション
+    	// フォームが未入力に場合
     	if (subjectRequestForm.hasErrors()) {
 			System.out.println("バリデーションエラー");
 			return badRequest(subjectCreate.render("科目登録に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
     	}
-
     	Subject subject = new Subject();
 
-    	//フォームから入力値を取得
+    	//フォームの内容を取得する
     	String subjectName =subjectRequestForm.get().getSubjectName();
     	String subjectId =subjectRequestForm.get().getId();
-    	//入力値をINSERTする
+
+    	//取得した値を登録する
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.save();
@@ -74,12 +81,14 @@ public class SubjectController extends Controller {
 
     /**
      * 科目更新画面を表示するアクション
+     * @param なし
+     * @return HTTPレスポンス(RESTに準拠)
      */
     public Result update(){
 
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
     	Subject subject = new Subject();
-    	//フォームから選択した科目を取得
+    	//フォームの内容を取得する
     	int bango = subjectRequestForm.get().getBango();
     	String id = subjectRequestForm.get().getId();
     	String name = subjectRequestForm.get().getSubjectName();
@@ -89,33 +98,35 @@ public class SubjectController extends Controller {
 
     /**
      * 科目を更新するアクション
+     * @param なし
+     * @return HTTPレスポンス(RESTに準拠)
      */
     public Result updateExec(){
 
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
     	Subject subject = new Subject();
     	// バリデーション
+    	// フォームが未入力の場合
     	if (subjectRequestForm.hasErrors()) {
 			System.out.println("バリデーションエラー");
-			//フォームからupdate()で選択した科目を取得
+			//フォームから選択した科目を取得する
 			int bango = subjectRequestForm.get().getBango();
 
-			//選択した科目を検索
+			//選択した科目を検索する
 			ExpressionList<Subject> datalist = Subject.getFind().where().eq("bango", bango);
 			List<Subject> data = datalist.findList();
-			//update()で選択した科目IDと科目名を取得
+			//選択した科目IDと科目名を取得する
 			String id =data.get(0).getId();
 			String name =data.get(0).getSubjectName();
 			return badRequest(subjectUpdate.render(bango,id,name,"科目編集に失敗しました。科目IDと科目名を入力してください。", subjectRequestForm));
     	}
-    	//フォームから値を取得
+    	//フォームの内容を取得する
     	String subjectId =subjectRequestForm.get().getId();
     	String subjectName =subjectRequestForm.get().getSubjectName();
-    	//入力値でUPDATEする
+    	//取得した値を登録する
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.update();
-
 
     	//TODO subjectList()を呼び出す形に変更したいがエラーとなる
     	final List<Subject> subjectList = Subject.getFind().all();
@@ -124,9 +135,10 @@ public class SubjectController extends Controller {
 
     /**
      * 科目削除確認画面に遷移するアクション
+     * @param なし
+     * @return HTTPレスポンス(RESTに準拠)
      */
     public Result delete(){
-
     	Subject subject = new Subject();
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
     	//フォームから選択した科目を取得
@@ -137,14 +149,16 @@ public class SubjectController extends Controller {
 
     /**
      * 科目を削除するアクション
+     * @param なし
+     * @return HTTPレスポンス(RESTに準拠)
      */
     public Result deleteExec(){
     	Form<SubjectRequestForm> subjectRequestForm = Form.form(SubjectRequestForm.class).bindFromRequest();
     	Subject subject = new Subject();
-    	//フォームから選択した科目を取得
+    	//フォームから選択した科目を取得する
     	String subjectId =subjectRequestForm.get().getId();
     	String subjectName =subjectRequestForm.get().getSubjectName();
-    	//選択した科目をDELETE
+    	//選択した科目を削除する
     	subject.setId(subjectId);
     	subject.setSubjectName(subjectName);
     	subject.delete();

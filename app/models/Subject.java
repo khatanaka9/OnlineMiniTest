@@ -15,6 +15,7 @@ import com.avaje.ebean.Model.*;
 
 /**
  * 科目エンティティクラス
+ * @author Ken Hatanaka
  *
  */
 @Entity(name = "Subject")
@@ -30,6 +31,8 @@ public class Subject extends Model {
 
 	/**
 	 * IDを取得する
+	 * @param なし
+	 * @return id 科目ID
 	 */
 	public String getId() {
 		return id;
@@ -37,6 +40,8 @@ public class Subject extends Model {
 
 	/**
 	 * IDを設定する
+	 * @param id 科目ID
+	 * @return なし
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -50,6 +55,8 @@ public class Subject extends Model {
 
 	/**
 	 * 科目名を取得する
+	 * @param なし
+	 * @return subjectName 科目名
 	 */
 	public String getSubjectName() {
 		return subjectName;
@@ -57,6 +64,8 @@ public class Subject extends Model {
 
 	/**
 	 * 科目名を設定する
+	 * @param subjectName 科目名
+	 * @return なし
 	 */
 	public void setSubjectName(String subjectName) {
 		this.subjectName = subjectName;
@@ -71,7 +80,7 @@ public class Subject extends Model {
 	/**
 	 * 連番を取得する
 	 * @param なし
-	 * @return bango
+	 * @return bango 連番
 	 * */
 	public int getBango(){
 		return bango;
@@ -80,18 +89,29 @@ public class Subject extends Model {
 	/**
 	 * 連番を設定する
 	 * @param Bango 連番
+	 * @return
 	 */
 	public void setBango(int bango) {
 		this.bango = bango;
 	}
 
+	/**
+	 * 引数ありコンストラクタ
+	 * TESTでEbeanが使用できない際に使用。
+	 *
+	 * @param subjectName 科目名
+	 * @param id 科目ID
+	 */
 	public Subject(String subjectName,String id){
 		this.subjectName = subjectName;
 		this.id = id;
 	}
 
+	/**
+	 * 引数なしコンストラクタ
+	 */
 	public Subject(){
-
+		super();
 	}
 
 	/**
@@ -101,6 +121,7 @@ public class Subject extends Model {
 	};
 	 /**
 	 * find取得
+	 * @return find
 	 */
 	public static Find<Long, Subject> getFind() {
 		return find;
@@ -109,6 +130,7 @@ public class Subject extends Model {
 
 	/**
 	 * find設定
+	 * @param find
 	 */
 	public static void setFind(Find<Long, Subject> find) {
 		Subject.find = find;
